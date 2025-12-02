@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SkyCast - Weather Dashboard</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+<div class="container">
+    <h1>SkyCast</h1>
+
+    <form method="POST">
+        <input type="text" name="city" placeholder="Enter city name" required />
+        <button type="submit">Get Weather</button>
+    </form>
+
+    {% if weather %}
+    <h2>Weather in {{ weather.city }}</h2>
+    <div class="weather-card">
+        <p><strong>Temperature:</strong> {{ weather.temperature }} °C</p>
+        <p><strong>Condition:</strong> {{ weather.description }}</p>
+        <p><strong>Humidity:</strong> {{ weather.humidity }}%</p>
+        <p><strong>Wind Speed:</strong> {{ weather.wind_speed }} m/s</p>
+    </div>
+    {% else %}
+    <p>Sorry, weather data not available.</p>
+    {% endif %}
+
+    {% if chart %}
+    <h3>5-Day Forecast</h3>
+    <img src="data:image/png;base64,{{ chart }}" alt="Temperature Trend" />
+    {% endif %}
+
+    <footer>Powered by OpenWeatherMap API</footer>
+</div>
+</body>
+</html>
